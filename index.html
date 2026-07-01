@@ -40,6 +40,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html{overflow-x:hidden}
 body{font-family:var(--font);color:var(--ink);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
@@ -119,10 +120,11 @@ header.scrolled{background:rgba(247,248,242,.97);-webkit-backdrop-filter:blur(14
 
 /* ===== Reveal on scroll ===== */
 .reveal{opacity:0;transform:translateY(48px);transition:opacity .9s cubic-bezier(.22,.7,.2,1),transform .9s cubic-bezier(.22,.7,.2,1)}
-.reveal.from-left{transform:translateX(-60px)}
-.reveal.from-right{transform:translateX(60px)}
+.reveal.from-left{transform:translateY(48px)}
+.reveal.from-right{transform:translateY(48px)}
 .reveal.zoom{transform:scale(.93)}
 .reveal.in{opacity:1;transform:none}
+@media(max-width:760px){.reveal.from-left,.reveal.from-right{transform:translateY(40px)}.reveal.in{transform:none!important}}
 
 /* ===== Section heads ===== */
 section{position:relative}
@@ -505,7 +507,7 @@ footer .fcol a:hover{color:var(--lime-l);padding-left:8px}
   background-image:linear-gradient(120deg,var(--lime-l),var(--lime),var(--lime-d),var(--lime),var(--lime-l));
   background-size:220% 100%;background-position:0 0;
 }
-.pb-btn{color:#fff!important}
+.pb-btn{color:#3a4a16!important;background:#fff!important;background-image:none!important}
 @keyframes limeflow{0%{background-position:0 0}100%{background-position:220% 0}}
 .btn-primary:hover,.btn-lime:hover,.modal-form .submit:hover{animation:limeflow 1.6s linear infinite;transform:translateY(-3px) scale(1.05)}
 .btn-primary::after,.btn-lime::after{display:none}
@@ -606,7 +608,7 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
 .phone-mock .app-go{margin:auto 6px 0;background:linear-gradient(135deg,var(--lime-l),var(--lime));color:#fff;text-align:center;padding:13px;border-radius:14px;font-weight:700;font-size:13px;box-shadow:0 8px 20px rgba(155,196,0,.4)}
 
 /* Team coverflow */
-.team-stage{position:relative;height:684px;max-width:1320px;margin:18px auto 0}
+.team-stage{position:relative;height:684px;max-width:1320px;margin:18px auto 0;overflow:hidden}
 .team-stage .tc-card{position:absolute;top:0;left:50%;width:408px;height:640px;border-radius:28px;overflow:hidden;background:#fff;box-shadow:0 26px 64px rgba(58,74,22,.24);transform:translate(-50%,48px) scale(.55);opacity:0;pointer-events:none;transition:transform .55s cubic-bezier(.2,.7,.2,1),opacity .5s,filter .5s;cursor:pointer}
 .team-stage .tc-photo{height:500px}
 .team-stage .tc-name{font-size:22px}
@@ -1269,47 +1271,6 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
 </div>
 
 <!-- Booking modal -->
-<div class="modal-ov" id="bookmodal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="bookmodalTitle">
-    <button class="mclose" id="modalclose" aria-label="Закрыть">✕</button>
-    <div class="modal-aside">
-      <div class="flogo"><img src="https://thb.tildacdn.com/tild6461-3437-4536-a133-666365623465/-/resize/240x/__.png" alt="Лайм"><div><b>Лайм</b><small>beauty · clinic</small></div></div>
-      <div>
-        <h3 id="bookmodalTitle">Запишитесь онлайн в салон Лайм</h3>
-        <p>Оставьте заявку — администратор перезвонит, поможет выбрать мастера и удобное время визита.</p>
-        <div class="mgift"><span class="e"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-7"/><rect x="2.5" y="7.5" width="19" height="4.5" rx="1"/><path d="M12 7.5V21"/><path d="M12 7.5H7.5a2.5 2.5 0 1 1 2.3-3.5C11 6 12 7.5 12 7.5Z"/><path d="M12 7.5h4.5a2.5 2.5 0 1 0-2.3-3.5C13 6 12 7.5 12 7.5Z"/></svg></span><div><b>10 000 ₽</b><span>в подарок новым клиентам</span></div></div>
-      </div>
-      <p style="opacity:.8;font-size:12px">г. Волжский, пр. Ленина 90ж · 8:00–20:00</p>
-    </div>
-    <div class="modal-form">
-      <form id="bookform">
-        <h4>Онлайн-запись</h4>
-        <div class="sub">Заполните форму, это займёт меньше минуты</div>
-        <div class="field"><label>Ваше имя</label><input type="text" name="name" placeholder="Как к вам обращаться?" required></div>
-        <div class="field"><label>Телефон</label><input type="tel" name="phone" placeholder="+7 (___) ___-__-__" required></div>
-        <div class="field"><label>Услуга</label>
-          <select name="service">
-            <option value="">Выберите направление</option>
-            <option>Косметология</option><option>Массаж и СПА</option><option>Парикмахерская</option>
-            <option>Ногти</option><option>Брови</option><option>Ресницы</option>
-            <option>Эпиляция</option><option>Татуаж</option><option>Макияж</option>
-            <option>Коррекция фигуры</option><option>Удаление татуажа</option><option>Пирсинг</option><option>Удаление папиллом</option>
-            <option>Обратный звонок</option>
-          </select>
-        </div>
-        <div class="field"><label>Комментарий (необязательно)</label><textarea name="comment" placeholder="Удобное время, пожелания…"></textarea></div>
-        <label class="consent"><input type="checkbox" name="agree" required><span>Даю согласие на <a data-policy="consent">обработку персональных данных</a> и принимаю <a data-policy="policy">политику&nbsp;конфиденциальности</a></span></label>
-        <button type="submit" class="submit">Записаться</button>
-        <span class="altbook">Или запишитесь сразу в приложении: <a href="https://kln.su/2zZ" target="_blank" rel="noopener">онлайн-запись →</a></span>
-      </form>
-      <div class="msuccess" id="booksuccess">
-        <div class="ok">✓</div>
-        <h4>Заявка отправлена!</h4>
-        <p>Спасибо! Администратор салона Лайм свяжется с вами в ближайшее время.</p>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Service popup -->
 <div class="popup" id="svcPopup">
@@ -1430,17 +1391,9 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
   var bookform = doc.getElementById('bookform');
   var booksuccess = doc.getElementById('booksuccess');
   window.__openBooking = function(svc){
-    if(!bookmodal) return;
-    // close any open service/cosmo popup and the gift toast so the form is on top
-    doc.querySelectorAll('.popup.open').forEach(function(p){ p.classList.remove('open'); });
-    var g = doc.getElementById('giftpop'); if(g) g.classList.remove('show');
-    if(bookform){ bookform.style.display=''; bookform.reset(); }
-    if(booksuccess) booksuccess.classList.remove('show');
-    if(svc){
-      var sel = bookform && bookform.querySelector('select[name=service]');
-      if(sel){ Array.prototype.forEach.call(sel.options, function(o){ if(o.value===svc || o.text===svc) sel.value=o.value; }); }
-    }
-    bookmodal.classList.add('show'); lockScroll(true);
+    // Booking is handled by the live external system (kln.su); the in-page form is unused for now.
+    var w = window.open('https://kln.su/2zZ', '_blank', 'noopener');
+    if(!w) location.href = 'https://kln.su/2zZ';
   };
   var closeBooking = function(){ if(bookmodal){ bookmodal.classList.remove('show'); lockScroll(false); } };
   on(doc.getElementById('modalclose'), 'click', closeBooking);
