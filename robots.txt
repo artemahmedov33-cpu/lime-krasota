@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lime-krasota.ru/sitemap.xml
+Host: lime-krasota.ru
