@@ -700,8 +700,54 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
   .reveal{opacity:1!important;transform:none!important}
   .lime-marquee{animation:none}
 }
+/* ===================== MOBILE UX REFINEMENTS ===================== */
+header{transition:transform .35s ease, background .4s ease, padding .4s ease, box-shadow .4s ease}
+header.hide{transform:translateY(-100%);box-shadow:none}
+.swipe-hint{display:none}
+@keyframes swipehint{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+@media(max-width:760px){
+  header{background:rgba(247,248,242,.97)}
+  /* (1) hero: readable text over image + visible secondary button */
+  .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(18,26,6,.38) 0%,rgba(18,26,6,.66) 100%)}
+  .hero-cta .btn-ghost{border-color:rgba(255,255,255,.85);color:#fff;background:rgba(255,255,255,.15);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+  .hero p{color:rgba(255,255,255,.92)}
+  /* (3) CTA box: solid, readable buttons; totop above sticky bar */
+  .cta-box .btn-light{background:#fff;color:var(--lime-d)}
+  .cta-box .btn-outline{background:rgba(255,255,255,.18);border-color:#fff;color:#fff}
+  .cta-box .hero-cta{flex-direction:column;gap:12px}
+  .cta-box .btn{width:100%}
+  .totop{bottom:84px;right:14px;width:46px;height:46px;font-size:20px}
+  /* swipe hint */
+  .swipe-hint{display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.6px;color:var(--lime-d);text-transform:uppercase;margin:-4px 0 16px}
+  .swipe-hint .a{display:inline-block;animation:swipehint 1.3s ease-in-out infinite;font-size:16px}
+  /* (6) services -> horizontal swipe */
+  .sgrid{display:flex;grid-template-columns:none;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 20px 12px;margin:0 -20px;scrollbar-width:none}
+  .sgrid::-webkit-scrollbar{display:none}
+  .sgrid .scard{flex:0 0 78%;scroll-snap-align:start;min-height:330px;opacity:1;transform:none}
+  /* (5) promo -> horizontal swipe */
+  .promo-banners{column-count:auto;display:flex;align-items:flex-start;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 20px 12px;margin:0 -20px;max-width:none;scrollbar-width:none}
+  .promo-banners::-webkit-scrollbar{display:none}
+  .promo-banners .promo-banner{flex:0 0 72%;scroll-snap-align:start;margin:0;break-inside:auto;opacity:1;transform:none}
+  /* (2) person popup: fits screen + face framing */
+  #personPopup .pu-card{width:min(430px,94vw);max-height:94vh}
+  #personPopup .pu-img{min-height:270px!important;background-position:50% 18%!important;background-size:cover!important}
+  #personPopup .pu-body{padding:24px 22px 28px}
+  #personPopup .pu-title{font-size:25px}
+  #personPopup .pu-desc{font-size:15px;line-height:1.6;margin-bottom:16px}
+  #personPopup .pp-intro{font-size:15.5px;margin-bottom:14px}
+  #personPopup .pp-points li{font-size:14px}
+  #personPopup .pp-nav{width:42px;height:42px;font-size:24px}
+}
+/* (7) remove empty space between blocks on phones */
+@media(max-width:600px){
+  .about,.services,.team,.faq,.contacts,.promo,.reviews{padding-top:46px;padding-bottom:46px}
+  .split,.app,.trust,.stats{padding-top:38px;padding-bottom:38px}
+  .cta{padding:40px 0 46px}
+  .shead{margin-bottom:24px}
+  .services{padding-bottom:40px}
+}
 </style>
-<noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+<noscript><style>.reveal{opacity:1!important;transform:none!important}.acc .acc-item{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
 
@@ -787,6 +833,7 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
       <h2>Услуги салона <em>Лайм</em></h2>
       <p>Полный спектр процедур красоты и эстетической медицины под одной крышей</p>
     </div>
+    <div class="swipe-hint">Листайте услуги <span class="a">→</span></div>
     <div class="sgrid">
       <div class="scard reveal" data-svc="Косметология" style="transition-delay:0s">
         <img src="https://optim.tildacdn.com/tild3332-3665-4338-b335-333834383137/-/format/webp/IMG_8115.JPG.webp" alt="Косметология" loading="lazy" width="600" height="450">
@@ -878,6 +925,7 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
       <h2>Акции и <em>скидки</em></h2>
       <p>Дарим бонусы новым гостям и заботимся о постоянных клиентах</p>
     </div>
+    <div class="swipe-hint">Листайте акции <span class="a">→</span></div>
     <div class="promo-banners reveal">
       <div class="promo-banner" data-book="">
         <img src="https://optim.tildacdn.com/tild3938-3932-4837-a233-363934303361/-/format/webp/IMG_20260619_144043.png.webp" alt="Дарим 10 000 ₽ новым клиентам на процедуры" loading="lazy">
@@ -1326,10 +1374,20 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
 
   /* ---------- Header scrolled ---------- */
   var hdr = doc.getElementById('hdr');
+  var lastSY = 0;
   var onScroll = function(){
-    if(hdr) hdr.classList.toggle('scrolled', window.scrollY > 40);
+    var y = window.scrollY;
+    if(hdr){
+      hdr.classList.toggle('scrolled', y > 40);
+      /* auto-hide header on scroll-down (mobile only), reveal on scroll-up */
+      if(window.innerWidth <= 760){
+        if(y > 560 && y > lastSY + 6) hdr.classList.add('hide');
+        else if(y < lastSY - 6 || y < 180) hdr.classList.remove('hide');
+      } else { hdr.classList.remove('hide'); }
+    }
     var tt = doc.getElementById('totop');
-    if(tt) tt.classList.toggle('show', window.scrollY > 500);
+    if(tt) tt.classList.toggle('show', y > 500);
+    lastSY = y;
   };
   on(window, 'scroll', onScroll); onScroll();
 
