@@ -86,14 +86,14 @@ header.scrolled{background:rgba(247,248,242,.97);-webkit-backdrop-filter:blur(14
 .burger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
 
 /* mobile menu */
-.mmenu{position:fixed;inset:0;z-index:190;background:rgba(247,248,242,.98);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;opacity:0;pointer-events:none;transition:.4s}
+.mmenu{position:fixed;inset:0;z-index:190;background:rgba(247,248,242,.98);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;padding:80px 24px 26px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s ease}
 .mmenu.open{opacity:1;pointer-events:auto}
-.mmenu a{font-size:25px;font-weight:700;color:var(--ink);padding:11px;transform:translateY(12px);opacity:0;transition:.4s}
+.mmenu a{font-size:21px;font-weight:700;color:var(--ink);padding:9px;transform:translateY(12px);opacity:0;transition:.4s}
 .mmenu.open a{transform:none;opacity:1}
 .mmenu.open a:nth-child(1){transition-delay:.05s}.mmenu.open a:nth-child(2){transition-delay:.1s}.mmenu.open a:nth-child(3){transition-delay:.15s}.mmenu.open a:nth-child(4){transition-delay:.2s}.mmenu.open a:nth-child(5){transition-delay:.25s}.mmenu.open a:nth-child(6){transition-delay:.3s}
 .mmenu a:hover{color:var(--lime-d)}
-.mmenu .mphone{font-size:22px;margin-top:18px;color:var(--lime-d)}
-.mmenu .btn{margin-top:14px}
+.mmenu .mphone{font-size:20px;margin-top:14px;color:var(--lime-d)}
+.mmenu .btn{margin-top:12px}
 
 /* ===== Hero ===== */
 .hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;background:#e8eed6;padding:120px 0 70px}
@@ -248,7 +248,7 @@ section{position:relative}
 .tc-role{font-size:13.5px;color:var(--lime-d);font-weight:700;margin:0}
 .tc-arrow{position:absolute;top:40%;width:52px;height:52px;border-radius:50%;border:none;background:var(--lime);color:#fff;font-size:24px;cursor:pointer;box-shadow:0 8px 22px rgba(155,196,0,.45);display:flex;align-items:center;justify-content:center;z-index:4;transition:transform .25s,box-shadow .25s,opacity .25s}
 .tc-arrow:hover{transform:scale(1.12);box-shadow:0 10px 28px rgba(155,196,0,.7)}
-.tc-arrow.prev{left:-14px}.tc-arrow.next{right:-14px}
+.tc-arrow.prev{left:8px}.tc-arrow.next{right:8px}
 .tc-arrow:disabled{opacity:.3;pointer-events:none}
 .tc-hint{display:flex;align-items:center;gap:9px;justify-content:center;margin-top:6px;color:var(--lime-d);font-weight:700;font-size:14px}
 .tc-hint .swipe-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--lime);animation:swp 1.4s ease-in-out infinite}
@@ -693,7 +693,8 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
   .about,.services,.team,.faq,.contacts{padding:74px 0}
   .shead{margin-bottom:40px}
   .tc-card{flex:0 0 100%}
-  .tc-arrow{display:none}
+  .tc-arrow{display:flex;width:46px;height:46px;font-size:22px;top:38%}
+  .tc-arrow.prev{left:6px}.tc-arrow.next{right:6px}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001s!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
@@ -704,6 +705,7 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
 header{transition:transform .35s ease, background .4s ease, padding .4s ease, box-shadow .4s ease}
 header.hide{transform:translateY(-100%);box-shadow:none}
 .swipe-hint{display:none}
+.strip-nav{display:none}
 @keyframes swipehint{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
 @media(max-width:760px){
   header{background:rgba(247,248,242,.97)}
@@ -713,7 +715,7 @@ header.hide{transform:translateY(-100%);box-shadow:none}
   .hero p{color:rgba(255,255,255,.92)}
   /* (3) CTA box: solid, readable buttons; totop above sticky bar */
   .cta-box .btn-light{background:#fff;color:var(--lime-d)}
-  .cta-box .btn-outline{background:rgba(255,255,255,.18);border-color:#fff;color:#fff}
+  .cta-box .btn-outline{background:var(--green-dark);border:2px solid var(--green-dark);color:#fff}
   .cta-box .hero-cta{flex-direction:column;gap:12px}
   .cta-box .btn{width:100%}
   .totop{bottom:84px;right:14px;width:46px;height:46px;font-size:20px}
@@ -725,12 +727,23 @@ header.hide{transform:translateY(-100%);box-shadow:none}
   .sgrid::-webkit-scrollbar{display:none}
   .sgrid .scard{flex:0 0 78%;scroll-snap-align:start;min-height:330px;opacity:1;transform:none}
   /* (5) promo -> horizontal swipe */
-  .promo-banners{column-count:auto;display:flex;align-items:flex-start;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 20px 12px;margin:0 -20px;max-width:none;scrollbar-width:none}
+  .promo-banners{column-count:auto;display:flex;align-items:stretch;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:4px 20px 12px;margin:0 -20px;max-width:none;scrollbar-width:none}
   .promo-banners::-webkit-scrollbar{display:none}
-  .promo-banners .promo-banner{flex:0 0 72%;scroll-snap-align:start;margin:0;break-inside:auto;opacity:1;transform:none}
+  .promo-banners .promo-banner{flex:0 0 70%;scroll-snap-align:start;margin:0;break-inside:auto;opacity:1;transform:none;aspect-ratio:4/5}
+  .promo-banners .promo-banner{background:#eef1e6}
+  .promo-banners .promo-banner img{width:100%;height:100%;object-fit:contain}
+  .promo-banners .promo-banner .pb-ov,.promo-banners .promo-banner .pb-btn{display:none}
+  /* reviews -> horizontal swipe (mobile) */
+  .rv-grid{display:flex;grid-template-columns:none;max-width:none;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:6px 20px 12px;margin:0 -20px;scrollbar-width:none}
+  .rv-grid::-webkit-scrollbar{display:none}
+  .rv-grid .rv-card{flex:0 0 84%;scroll-snap-align:start;opacity:1;transform:none}
+  /* tappable nav buttons for all swipe strips */
+  .strip-nav{display:flex;justify-content:center;gap:16px;margin-top:16px}
+  .strip-btn{width:46px;height:46px;border-radius:50%;border:none;background:var(--lime);color:#fff;font-size:24px;line-height:1;box-shadow:0 8px 20px rgba(155,196,0,.45);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+  .strip-btn:active{transform:scale(.9)}
   /* (2) person popup: fits screen + face framing */
   #personPopup .pu-card{width:min(430px,94vw);max-height:94vh}
-  #personPopup .pu-img{min-height:270px!important;background-position:50% 18%!important;background-size:cover!important}
+  #personPopup .pu-img{min-height:0!important;aspect-ratio:8/9;background-size:cover!important}
   #personPopup .pu-body{padding:24px 22px 28px}
   #personPopup .pu-title{font-size:25px}
   #personPopup .pu-desc{font-size:15px;line-height:1.6;margin-bottom:16px}
@@ -888,6 +901,7 @@ header.hide{transform:translateY(-100%);box-shadow:none}
         <div class="body"><div class="ic">❀</div><h3>Макияж</h3><span class="price">от 1 000 ₽</span><p>Вечерний и свадебный макияж. Стойкий, на профессиональной косметике.</p><span class="more">Подробнее <span class="arr">→</span></span></div>
       </div>
     </div>
+    <div class="strip-nav"><button class="strip-btn prev" type="button" aria-label="Предыдущие услуги">‹</button><button class="strip-btn next" type="button" aria-label="Следующие услуги">›</button></div>
     <div class="svc-actions reveal">
       <a class="btn btn-primary" href="cost.html">Полный прайс на услуги</a>
       <a class="btn btn-ghost" href="cert.html">Подарочные сертификаты</a>
@@ -984,6 +998,7 @@ header.hide{transform:translateY(-100%);box-shadow:none}
         <div class="pb-ov"></div><span class="pb-btn">Записаться онлайн</span>
       </div>
     </div>
+    <div class="strip-nav"><button class="strip-btn prev" type="button" aria-label="Предыдущие акции">‹</button><button class="strip-btn next" type="button" aria-label="Следующие акции">›</button></div>
   </div>
 </section>
 
@@ -1171,6 +1186,7 @@ header.hide{transform:translateY(-100%);box-shadow:none}
         <div class="rv-who"><div class="rv-av">С</div><div><div class="rv-name">Сирануш Оганян</div><div class="rv-src">Отзыв · <b>Яндекс</b></div></div></div>
       </div>
     </div>
+    <div class="strip-nav"><button class="strip-btn prev" type="button" aria-label="Предыдущие отзывы">‹</button><button class="strip-btn next" type="button" aria-label="Следующие отзывы">›</button></div>
     <div class="reviews-cta reveal">
       <a class="btn btn-lime" href="https://yandex.ru/maps/org/laym/1285057282/reviews/" target="_blank" rel="noopener">Читать все отзывы на Яндекс.Картах</a>
     </div>
@@ -1380,7 +1396,8 @@ header.hide{transform:translateY(-100%);box-shadow:none}
     if(hdr){
       hdr.classList.toggle('scrolled', y > 40);
       /* auto-hide header on scroll-down (mobile only), reveal on scroll-up */
-      if(window.innerWidth <= 760){
+      var menuOpen = mmenu && mmenu.classList.contains('open');
+      if(window.innerWidth <= 760 && !menuOpen){
         if(y > 560 && y > lastSY + 6) hdr.classList.add('hide');
         else if(y < lastSY - 6 || y < 180) hdr.classList.remove('hide');
       } else { hdr.classList.remove('hide'); }
@@ -1391,12 +1408,22 @@ header.hide{transform:translateY(-100%);box-shadow:none}
   };
   on(window, 'scroll', onScroll); onScroll();
 
+  /* ---------- Nav buttons for swipe strips (services / promos / reviews) ---------- */
+  doc.querySelectorAll('.strip-nav').forEach(function(nav){
+    var scroller = nav.previousElementSibling;
+    if(!scroller) return;
+    var step = function(){ var c = scroller.firstElementChild; return (c ? c.getBoundingClientRect().width : scroller.clientWidth * 0.8) + 14; };
+    on(nav.querySelector('.prev'), 'click', function(){ scroller.scrollBy({left: -step(), behavior: 'smooth'}); });
+    on(nav.querySelector('.next'), 'click', function(){ scroller.scrollBy({left: step(), behavior: 'smooth'}); });
+  });
+
   /* ---------- Burger / mobile menu ---------- */
   var burger = doc.getElementById('burger'), mmenu = doc.getElementById('mmenu');
   var setMenu = function(open){
     if(!burger || !mmenu) return;
     burger.classList.toggle('open', open);
     mmenu.classList.toggle('open', open);
+    if(open && hdr) hdr.classList.remove('hide');  /* keep close (×) reachable */
     lockScroll(open);
   };
   on(burger, 'click', function(){ setMenu(!mmenu.classList.contains('open')); });
