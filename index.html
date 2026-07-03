@@ -461,7 +461,8 @@ footer .fcol a:hover{color:var(--lime-l);padding-left:8px}
 
 /* ===== Person detail popup role line ===== */
 #personPopup .pp-role{color:var(--lime-d);font-weight:700;margin:-6px 0 16px;font-size:15px}
-#personPopup .pu-img{background-size:cover;background-position:center top;min-height:660px}
+#personPopup .pu-img{min-height:660px;overflow:hidden;position:relative;background:#e9eed8}
+#personPopup .pp-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;display:block}
 #personPopup .pu-card{width:min(1240px,96vw);grid-template-columns:1fr 1.05fr;border-radius:32px}
 #personPopup .pu-body{padding:60px 56px;display:flex;flex-direction:column;justify-content:center}
 #personPopup .pu-eyebrow{font-size:14px;letter-spacing:2.5px;margin-bottom:18px}
@@ -743,7 +744,7 @@ header.hide{transform:translateY(-100%);box-shadow:none}
   .strip-btn:active{transform:scale(.9)}
   /* (2) person popup: fits screen + face framing */
   #personPopup .pu-card{width:min(430px,94vw);max-height:94vh}
-  #personPopup .pu-img{min-height:0!important;aspect-ratio:8/9;background-size:cover!important}
+  #personPopup .pu-img{min-height:0!important;aspect-ratio:8/9;overflow:hidden}
   #personPopup .pu-body{padding:24px 22px 28px}
   #personPopup .pu-title{font-size:25px}
   #personPopup .pu-desc{font-size:15px;line-height:1.6;margin-bottom:16px}
@@ -1637,14 +1638,27 @@ header.hide{transform:translateY(-100%);box-shadow:none}
   function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   var personCur = null;
   /* popup-only framing overrides (carousel cards are unchanged) */
+  /* popup framing: 'object-position | transform-scale' over object-fit:cover.
+     ЭТАЛОН = Лилия Кобликова (IMG_8311) → default '50% 12%|1'. Only individually
+     tuned people get an entry; everyone else falls back to the etalon default. */
   var POPUP_FRAME = {
-    'IMG_8263':'50% 20%|120%','IMG_8041':'50% 22%|118%','IMG_8052':'70% 28%|140%',
-    'IMG_7906':'50% 38%|135%','IMG_7990':'50% 36%|150%','__.JPG':'50% 38%|110%','IMG_7979':'30% 46%|112%',
-    'IMG_7934':'38% 16%|120%','IMG_7927':'50% 32%|150%','IMG_8023':'33% 34%|138%',
-    'IMG_8250':'44% 28%|135%','IMG_7899':'44% 24%|145%','IMG_8289':'50% 24%|148%',
-    'IMG_8294':'38% 47%|135%','IMG_2296':'50% 30%|128%','IMG_2295':'50% 34%|140%',
-    'IMG_8334':'50% 7%|122%','IMG_8300':'50% 7%|140%','IMG_8279':'0% 20%|140%',
-    'IMG_8070':'50% 48%|195%','IMG_7949':'50% 37%|145%'
+    'IMG_8003':'58% 6%|1.05',  /* Екатерина Емельянова — чуть выше и правее */
+    'IMG_8052':'42% 12%|1.15', /* Фаина Нооева — чуть увеличить и левее */
+    'IMG_8026':'50% 12%|1.15', /* Оксана Яковлева — чуть увеличить, по центру */
+    'IMG_7906':'50% 12%|1.3',  /* Юлия Штибинг — увеличить */
+    'IMG_7915':'50% 12%|1.15', /* Марина Ларина — чуть увеличить */
+    'IMG_7990':'50% 18%|1.2',  /* Анна Жорова — чуть увеличить */
+    'IMG_7979':'50% 6%|1.3',   /* Татьяна Петрова — увеличить и выше */
+    'IMG_7934':'58% 12%|1.05', /* Алина Степанова — правее */
+    'IMG_8059':'50% 12%|1.3',  /* Ольга Романова — увеличить */
+    'IMG_7927':'50% 12%|1.3',  /* Анна Разумова — увеличить */
+    'IMG_8023':'50% 12%|1.3',  /* Алина Земскова — увеличить */
+    'IMG_8250':'50% 12%|1.3',  /* Юлия Вингелис — увеличить */
+    'IMG_7899':'50% 12%|1.3',  /* Анна Манаева — увеличить */
+    'IMG_8289':'50% 12%|1.15', /* Вера Носик — чуть увеличить */
+    'IMG_8317':'50% 12%|1.15', /* Валентина Скорик — чуть увеличить */
+    'IMG_8294':'50% 6%|1.15',  /* Юлия Барабанова — чуть увеличить и выше */
+    'IMG_8070':'50% 2%|1.7'    /* Дарья Васильева — ростовой снимок, зум к лицу под эталон */
   };
   function fillPerson(card){
     var pp = doc.getElementById('personPopup'); if(!pp || !card) return;
@@ -1653,16 +1667,15 @@ header.hide{transform:translateY(-100%);box-shadow:none}
     var pho = pp.querySelector('.pp-photo');
     var phImg = phEl ? phEl.querySelector('img') : null;
     var src = phImg ? phImg.getAttribute('src') : '';
-    var bg = src ? "url('" + src + "')" : (phEl ? phEl.style.backgroundImage : '');
-    pho.style.backgroundImage = bg;
-    var ov = null;
-    for(var key in POPUP_FRAME){ if(bg.indexOf(key) >= 0){ ov = POPUP_FRAME[key]; break; } }
-    if(ov){ var pr = ov.split('|'); pho.style.backgroundPosition = pr[0]; pho.style.backgroundSize = pr[1]; }
-    else {
-      var dpos = phImg ? phImg.getAttribute('data-pos') : '', dsize = phImg ? phImg.getAttribute('data-size') : '';
-      pho.style.backgroundPosition = dpos || (phEl && phEl.style.backgroundPosition) || 'center top';
-      pho.style.backgroundSize = dsize || (phEl && phEl.style.backgroundSize) || 'cover';
-    }
+    var url = src || (phEl ? (phEl.style.backgroundImage || '').replace(/^url\((['"]?)(.*?)\1\)$/, '$2') : '');
+    var img = pho.querySelector('img');
+    if(!img){ img = doc.createElement('img'); img.alt = ''; img.decoding = 'async'; pho.appendChild(img); }
+    if(img.getAttribute('src') !== url){ img.src = url; }
+    var frame = null;
+    for(var key in POPUP_FRAME){ if(url.indexOf(key) >= 0){ frame = POPUP_FRAME[key]; break; } }
+    var fp = (frame || '50% 12%|1').split('|');
+    img.style.objectPosition = fp[0];
+    img.style.transform = 'scale(' + (fp[1] || '1') + ')';
     pp.querySelector('.pp-name').textContent = nameEl ? nameEl.textContent : '';
     pp.querySelector('.pp-role').textContent = roleEl ? roleEl.textContent : '';
     var info = personInfo(roleEl ? roleEl.textContent : '');
