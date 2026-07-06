@@ -109,6 +109,7 @@ header.scrolled{background:rgba(247,248,242,.97);-webkit-backdrop-filter:blur(14
 .hero-cta{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:up 1s .8s forwards}
 .hero-badges{display:flex;gap:46px;margin-top:54px;opacity:0;animation:up 1s .95s forwards;flex-wrap:wrap}
 .hbadge .n{font-size:40px;font-weight:800;color:var(--lime-l);line-height:1;letter-spacing:-1px}
+.hbadge .n.stars{font-size:25px;letter-spacing:3px}
 .hbadge .t{font-size:12.5px;color:rgba(255,255,255,.75);letter-spacing:.3px;margin-top:6px;font-weight:500}
 .hero-float{position:absolute;right:48px;bottom:48px;z-index:3;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-radius:50px;padding:16px 28px;display:flex;align-items:center;gap:15px;box-shadow:0 14px 40px rgba(20,28,8,.3);opacity:0;animation:up 1s 1.15s forwards;cursor:pointer;transition:transform .3s}
 .hero-float:hover{transform:translateY(-4px)}
@@ -124,7 +125,7 @@ header.scrolled{background:rgba(247,248,242,.97);-webkit-backdrop-filter:blur(14
 .reveal.from-right{transform:translateY(48px)}
 .reveal.zoom{transform:scale(.93)}
 .reveal.in{opacity:1;transform:none}
-@media(max-width:760px){.reveal.from-left,.reveal.from-right{transform:translateY(40px)}.reveal.in{transform:none!important}}
+@media(max-width:760px){.reveal{transition:opacity .55s ease,transform .8s cubic-bezier(.34,1.5,.5,1)}.reveal.from-left,.reveal.from-right{transform:translateY(40px)}.reveal.in{transform:none!important}}
 
 /* ===== Section heads ===== */
 section{position:relative}
@@ -315,6 +316,33 @@ footer .fcol a:hover{color:var(--lime-l);padding-left:8px}
 .totop{position:fixed;right:28px;bottom:28px;width:54px;height:54px;border-radius:50%;background:var(--lime);color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 10px 26px rgba(155,196,0,.5);opacity:0;pointer-events:none;transition:.4s;z-index:150;border:none;cursor:pointer}
 .totop.show{opacity:1;pointer-events:auto}
 .totop:hover{transform:translateY(-4px)}
+/* ===== Custom lime cursor (desktop / fine pointer only) ===== */
+@media (hover:hover) and (pointer:fine){
+  body.limecursor-on{cursor:none}
+  body.limecursor-on a,body.limecursor-on button,body.limecursor-on .tc-card,body.limecursor-on .scard,body.limecursor-on [data-book],body.limecursor-on .promo-banner,body.limecursor-on .lic-thumb,body.limecursor-on .acc-head,body.limecursor-on label,body.limecursor-on .consent{cursor:none}
+  .limecursor{position:fixed;top:0;left:0;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+  .limecursor.lc-dot{width:9px;height:9px;background:var(--lime);box-shadow:0 0 0 2px rgba(255,255,255,.55);transition:width .18s ease,height .18s ease,opacity .3s}
+  .limecursor.lc-ring{width:34px;height:34px;border:2px solid var(--lime);background:rgba(155,196,0,.06);transition:width .25s ease,height .25s ease,border-color .25s ease,background .25s ease,opacity .3s}
+  .limecursor.lc-ring.hover{width:56px;height:56px;border-color:var(--lime-d);background:rgba(155,196,0,.14)}
+  .limecursor.lc-dot.hover{width:0;height:0}
+}
+/* ===== Touch micro-interactions (lime) ===== */
+.lime-ripple{position:fixed;border-radius:50%;pointer-events:none;z-index:9998;background:radial-gradient(circle,rgba(155,196,0,.42) 0%,rgba(155,196,0,.22) 45%,rgba(155,196,0,0) 72%);transform:translate(-50%,-50%) scale(0);opacity:.95;will-change:transform,opacity}
+.lime-ripple.go{animation:limeripple .6s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes limeripple{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.lime-trail{position:fixed;pointer-events:none;z-index:9997;color:var(--lime);line-height:1;transform:translate(-50%,-50%);text-shadow:0 1px 3px rgba(90,110,40,.3);will-change:transform,opacity}
+.lime-trail.go{animation:limetrail .7s ease-out forwards}
+@keyframes limetrail{0%{opacity:.95;transform:translate(-50%,-50%) scale(1) rotate(0)}100%{opacity:0;transform:translate(-50%,-150%) scale(.35) rotate(90deg)}}
+.lime-spark{position:fixed;pointer-events:none;z-index:9999;border-radius:50%;background:var(--lime);will-change:transform,opacity}
+.lime-leaf-layer{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.lime-leaf{position:absolute;background:var(--lime);border-radius:0 100% 0 100%;opacity:0;will-change:transform,opacity}
+@keyframes leafdrift{0%{transform:translateY(20px) translateX(0) rotate(0);opacity:0}12%{opacity:.12}88%{opacity:.12}100%{transform:translateY(-118vh) translateX(26px) rotate(230deg);opacity:0}}
+@media (hover:none) and (pointer:coarse){
+  .btn{transition:transform .12s ease,box-shadow .28s ease,filter .28s ease,background .28s ease,color .28s ease}
+  .btn:active,.mc-book:active,.scard:active,.promo-banner:active,.lic-thumb:active{transform:scale(.96);filter:brightness(.98)}
+  .strip-btn:active,.tc-arrow:active{transform:scale(.88)}
+}
+@media(prefers-reduced-motion:reduce){.lime-leaf-layer{display:none}}
 
 /* ===== Booking modal ===== */
 .modal-ov{position:fixed;inset:0;z-index:600;background:rgba(28,33,15,.55);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:.4s}
@@ -692,8 +720,11 @@ footer .fcol a:hover,.flegal a:hover{color:#fff}
   .about-media .chip{left:0;padding:16px 20px}
   .about-media .frame{inset:14px -10px -14px 10px}
   .split-body{padding:40px 24px}
-  .stats{padding:26px 0}
-  .lime-marquee .mq-num{font-size:38px}
+  .stats{padding:22px 0}
+  .lime-marquee .mq-num{font-size:26px}
+  .lime-marquee .mq-lbl{font-size:13.5px}
+  .lime-marquee .mq-item{padding:0 16px;gap:10px}
+  .lime-marquee .mq-item::after{margin-left:16px;font-size:12px}
   .about,.services,.team,.faq,.contacts{padding:74px 0}
   .shead{margin-bottom:40px}
   .tc-card{flex:0 0 100%}
@@ -811,7 +842,7 @@ header.hide{transform:translateY(-100%);box-shadow:none}
       <div class="hero-badges">
         <div class="hbadge"><div class="n">15&nbsp;000+</div><div class="t">клиентов за 10+ лет</div></div>
         <div class="hbadge"><div class="n">50+</div><div class="t">услуг красоты и здоровья</div></div>
-        <div class="hbadge"><div class="n">★</div><div class="t">«Хорошее место» по версии Яндекса</div></div>
+        <div class="hbadge"><div class="n stars">★★★★★</div><div class="t">«Хорошее место» по версии Яндекса</div></div>
       </div>
     </div>
   </div>
@@ -1600,7 +1631,7 @@ header.hide{transform:translateY(-100%);box-shadow:none}
       });
     };
     cards.forEach(function(c,i){
-      on(c, 'click', function(){ if(i===active){ openPerson(c); } else { active=i; render(); } });
+      on(c, 'click', function(){ if(i===active){ if(window.innerWidth > 760) openPerson(c); } else { active=i; render(); } });
     });
     on(prevA, 'click', function(){ active=(active-1+n)%n; render(); });
     on(nextA, 'click', function(){ active=(active+1)%n; render(); });
@@ -1788,7 +1819,144 @@ header.hide{transform:translateY(-100%);box-shadow:none}
     var label = (nm ? nm.textContent : '') + (rl ? ' — ' + rl.textContent : '');
     label = label.trim();
     if(label){ ph.setAttribute('role','img'); ph.setAttribute('aria-label', 'Фото: ' + label + ', салон «Лайм»'); }
+    // unify card photo framing to the popup (ЭТАЛОН = Лилия): same object-position + scale
+    var cimg = ph.querySelector('img');
+    if(cimg){
+      var csrc = cimg.getAttribute('src') || '', cf = null;
+      for(var ck in POPUP_FRAME){ if(csrc.indexOf(ck) >= 0){ cf = POPUP_FRAME[ck]; break; } }
+      var cfp = (cf || '50% 12%|1').split('|');
+      cimg.style.objectPosition = cfp[0];
+      cimg.style.transform = 'scale(' + (cfp[1] || '1') + ')';
+    }
   });
+
+  /* ---------- Custom lime cursor (desktop, fine pointer only) ---------- */
+  (function(){
+    if(!window.matchMedia || !matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    var dot = doc.createElement('div'); dot.className = 'limecursor lc-dot';
+    var ring = doc.createElement('div'); ring.className = 'limecursor lc-ring';
+    doc.body.appendChild(ring); doc.body.appendChild(dot);
+    doc.body.classList.add('limecursor-on');
+    var mx = window.innerWidth/2, my = window.innerHeight/2, rx = mx, ry = my, started = false;
+    on(doc, 'mousemove', function(e){
+      mx = e.clientX; my = e.clientY;
+      dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+      if(!started){ started = true; rx = mx; ry = my; }
+    });
+    (function loop(){ rx += (mx-rx)*0.2; ry += (my-ry)*0.2; ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)'; requestAnimationFrame(loop); })();
+    var HOV = 'a,button,input,textarea,label,.tc-card,.scard,[data-book],.promo-banner,.lic-thumb,.acc-head,.consent,.hbadge,.ti,.strip-btn,.tc-arrow';
+    on(doc, 'mouseover', function(e){ if(e.target.closest && e.target.closest(HOV)){ ring.classList.add('hover'); dot.classList.add('hover'); } });
+    on(doc, 'mouseout', function(e){ if(e.target.closest && e.target.closest(HOV)){ ring.classList.remove('hover'); dot.classList.remove('hover'); } });
+    on(doc.documentElement, 'mouseleave', function(){ dot.style.opacity = 0; ring.style.opacity = 0; });
+    on(doc.documentElement, 'mouseenter', function(){ dot.style.opacity = 1; ring.style.opacity = 1; });
+  })();
+
+  /* ---------- Touch micro-interactions (lime) ---------- */
+  (function(){
+    var mm = window.matchMedia;
+    var TOUCH = (mm && mm('(hover:none) and (pointer:coarse)').matches) || ('ontouchstart' in window);
+    var REDUCE = mm && mm('(prefers-reduced-motion:reduce)').matches;
+    var body = doc.body;
+    var mk = function(cls){ var d = doc.createElement('div'); d.className = cls; return d; };
+    var rm = function(n){ if(n && n.parentNode) n.parentNode.removeChild(n); };
+
+    /* 1) Lime ripple on every tap */
+    if(TOUCH && !REDUCE){
+      doc.addEventListener('touchstart', function(e){
+        var t = e.touches && e.touches[0]; if(!t) return;
+        var r = mk('lime-ripple'); r.style.width = '66px'; r.style.height = '66px';
+        r.style.left = t.clientX + 'px'; r.style.top = t.clientY + 'px';
+        body.appendChild(r);
+        requestAnimationFrame(function(){ r.classList.add('go'); });
+        setTimeout(function(){ rm(r); }, 640);
+      }, {passive:true});
+    }
+
+    /* 2) Lime trail following the finger on swipe/scroll */
+    if(TOUCH && !REDUCE){
+      var lastTrail = 0;
+      doc.addEventListener('touchmove', function(e){
+        var now = +new Date(); if(now - lastTrail < 45) return; lastTrail = now;
+        var t = e.touches && e.touches[0]; if(!t) return;
+        var s = mk('lime-trail'); s.textContent = '✦';
+        s.style.fontSize = (10 + (now % 6)) + 'px';
+        s.style.left = t.clientX + 'px'; s.style.top = t.clientY + 'px';
+        body.appendChild(s);
+        requestAnimationFrame(function(){ s.classList.add('go'); });
+        setTimeout(function(){ rm(s); }, 720);
+      }, {passive:true});
+    }
+
+    /* 3) Haptics on key buttons (Android; iOS Safari lacks Vibration API) */
+    if(TOUCH && navigator.vibrate){
+      body.querySelectorAll('.btn,.mc-book,.strip-btn,.tc-arrow').forEach(function(b){
+        b.addEventListener('touchstart', function(){ try{ navigator.vibrate(7); }catch(_){} }, {passive:true});
+      });
+    }
+
+    /* 4) Lime particle burst on booking CTA (fires on press so it's seen before nav) */
+    function burst(x, y){
+      if(REDUCE) return;
+      for(var i=0;i<16;i++){
+        var s = mk('lime-spark');
+        var size = 6 + Math.random()*7;
+        s.style.width = size + 'px'; s.style.height = size + 'px';
+        s.style.left = x + 'px'; s.style.top = y + 'px';
+        if(Math.random() < 0.5) s.style.background = 'var(--lime-l)';
+        body.appendChild(s);
+        (function(sp){
+          var ang = Math.random()*Math.PI*2, spd = 3 + Math.random()*4.5;
+          var vx = Math.cos(ang)*spd, vy = Math.sin(ang)*spd - 3.5;
+          var dx = 0, dy = 0, life = 0, max = 40 + (Math.random()*20|0);
+          (function anim(){
+            life++; vy += 0.24; dx += vx; dy += vy; vx *= 0.99;
+            sp.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+            sp.style.opacity = String(Math.max(0, 1 - life/max));
+            if(life < max) requestAnimationFrame(anim); else rm(sp);
+          })();
+        })(s);
+      }
+    }
+    body.querySelectorAll('.btn[data-book], .mc-book').forEach(function(b){
+      b.addEventListener('pointerdown', function(e){
+        var x = e.clientX, y = e.clientY;
+        if(!x && !y){ var rr = b.getBoundingClientRect(); x = rr.left + rr.width/2; y = rr.top + rr.height/2; }
+        burst(x, y);
+      });
+    });
+
+    /* 5) Floating lime leaves (ambient) */
+    if(TOUCH && !REDUCE){
+      var layer = mk('lime-leaf-layer');
+      body.appendChild(layer);
+      for(var k=0;k<7;k++){
+        var lf = mk('lime-leaf');
+        var sz = 9 + Math.random()*10;
+        lf.style.width = sz + 'px'; lf.style.height = sz + 'px';
+        lf.style.left = (Math.random()*100) + 'vw';
+        lf.style.bottom = '-30px';
+        var dur = 15 + Math.random()*12;
+        lf.style.animation = 'leafdrift ' + dur + 's linear ' + (-(Math.random()*dur)) + 's infinite';
+        layer.appendChild(lf);
+      }
+    }
+
+    /* 6) Micro-vibration when a carousel snaps to a new card */
+    if(TOUCH && navigator.vibrate){
+      body.querySelectorAll('.sgrid, .promo-banners, .rv-grid').forEach(function(sc){
+        var tmr = null, lastIdx = -1;
+        sc.addEventListener('scroll', function(){
+          if(tmr) clearTimeout(tmr);
+          tmr = setTimeout(function(){
+            var c = sc.firstElementChild; if(!c) return;
+            var w = c.getBoundingClientRect().width + 14;
+            var idx = Math.round(sc.scrollLeft / w);
+            if(idx !== lastIdx){ lastIdx = idx; try{ navigator.vibrate(5); }catch(_){} }
+          }, 90);
+        }, {passive:true});
+      });
+    }
+  })();
 })();
 </script>
 
