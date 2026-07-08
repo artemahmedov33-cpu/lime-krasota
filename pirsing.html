@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2NCA2NCI+PGNpcmNsZSBjeD0iMzIiIGN5PSIzMiIgcj0iMzIiIGZpbGw9IiM5RkMzMzMiLz48dGV4dCB4PSIzMiIgeT0iMzMiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGRvbWluYW50LWJhc2VsaW5lPSJjZW50cmFsIiBmb250LWZhbWlseT0iU2Vnb2UgVUksQXJpYWwsc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjgwMCIgZm9udC1zaXplPSI0NSIgZmlsbD0iIzAwNEExRiI+0Js8L3RleHQ+PC9zdmc+">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="theme-color" content="#9bc400">
 <title>Пирсинг и прокол ушей в Волжском — салон «Лайм»: цена и запись</title>
 <meta name="description" content="Пирсинг и прокол ушей в Волжском в салоне «Лайм»: стерильные одноразовые инструменты, аккуратный прокол, качественные украшения и уход после процедуры. Прокол ушей — 1 500 ₽, запись онлайн.">
@@ -114,12 +117,12 @@ body{padding-bottom:60px}
 :focus-visible{outline:3px solid var(--lime-ink);outline-offset:2px;border-radius:4px}
 /* ===== Unified concept: lime cursor + effects (audit 07.2026) ===== */
 @media (hover:hover) and (pointer:fine){
-  body.limecursor-on{cursor:none}
+  body.limecursor-on,body.limecursor-on *{cursor:none!important}
   body.limecursor-on a,body.limecursor-on button,body.limecursor-on .btn,body.limecursor-on .bcard,body.limecursor-on .ti,body.limecursor-on .related a,body.limecursor-on [data-book],body.limecursor-on label,body.limecursor-on input,body.limecursor-on textarea,body.limecursor-on summary{cursor:none}
   .limecursor{position:fixed;top:0;left:0;width:23px;height:23px;pointer-events:none;z-index:99999;transform:translate3d(-200px,-200px,0);will-change:transform;transition:opacity .25s ease}
-  .limecursor .lc-body{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 34% 28%,#e6f6a0 0%,#c0e150 30%,#9bc400 55%,#6f8f12 100%);box-shadow:0 3px 8px rgba(58,74,22,.4),inset -2px -2px 5px rgba(58,74,22,.38),inset 3px 3px 6px rgba(255,255,255,.4);transition:transform .16s cubic-bezier(.2,.85,.3,1)}
-  .limecursor .lc-leaf{position:absolute;top:-5px;left:50%;width:11px;height:11px;background:linear-gradient(135deg,#93b800,#3a4a16);border-radius:0 100% 0 100%;transform:translateX(-58%) rotate(-28deg);box-shadow:0 1px 2px rgba(58,74,22,.35)}
-  .limecursor .lc-shine{position:absolute;top:23%;left:25%;width:6px;height:4px;border-radius:50%;background:rgba(255,255,255,.82);transform:rotate(-22deg)}
+  .limecursor .lc-body{position:absolute;inset:0;transition:transform .16s cubic-bezier(.2,.85,.3,1)}.limecursor .lc-body svg{width:100%;height:100%;overflow:visible;display:block;filter:drop-shadow(0 3px 5px rgba(40,55,10,.45))}
+  
+  
   .limecursor.hover .lc-body{transform:scale(1.4)}
   .limecursor.press .lc-body{transform:scale(.82)}
   .lime-spot{position:fixed;top:0;left:0;width:320px;height:320px;border-radius:50%;pointer-events:none;z-index:400;transform:translate3d(-600px,-600px,0) translate(-50%,-50%);will-change:transform;background:radial-gradient(circle,rgba(155,196,0,.14) 0%,rgba(155,196,0,.05) 40%,rgba(155,196,0,0) 68%);transition:opacity .3s ease}
@@ -264,7 +267,7 @@ body{padding-bottom:60px}
  var body=doc.body, mk=function(c){var d=doc.createElement('div');d.className=c;return d;}, rm=function(n){if(n&&n.parentNode)n.parentNode.removeChild(n);};
  function burst(x,y){for(var i=0;i<16;i++){var s=mk('lime-spark');var sz=6+Math.random()*7;s.style.width=sz+'px';s.style.height=sz+'px';s.style.left=x+'px';s.style.top=y+'px';if(Math.random()<0.5)s.style.background='var(--lime-l)';body.appendChild(s);(function(sp){var a=Math.random()*Math.PI*2,sp2=3+Math.random()*4.5,vx=Math.cos(a)*sp2,vy=Math.sin(a)*sp2-3.5,dx=0,dy=0,l=0,m=40+(Math.random()*20|0);(function anim(){l++;vy+=0.24;dx+=vx;dy+=vy;vx*=0.99;sp.style.transform='translate('+dx+'px,'+dy+'px)';sp.style.opacity=String(Math.max(0,1-l/m));if(l<m)requestAnimationFrame(anim);else rm(sp);})();})(s);}}
  if(HAS_MOUSE&&!reduce){
-  var lc=mk('limecursor');lc.innerHTML='<div class="lc-body"></div><div class="lc-leaf"></div><div class="lc-shine"></div>';
+  var lc=mk('limecursor');lc.innerHTML='<div class="lc-body"><svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="lcSkin" cx="37%" cy="30%" r="72%"><stop offset="0%" stop-color="#eefaa6"/><stop offset="26%" stop-color="#c2e657"/><stop offset="55%" stop-color="#96c41c"/><stop offset="82%" stop-color="#6f9b10"/><stop offset="100%" stop-color="#4f7607"/></radialGradient><linearGradient id="lcLeaf" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#b7e12b"/><stop offset="100%" stop-color="#3c6710"/></linearGradient></defs><path d="M21 6 C30 -6 43 -1 37 9 C32 16 24 13 21 6 Z" fill="url(#lcLeaf)" stroke="#33520b" stroke-width=".6"/><path d="M23 7 C28 3 33 2 36 3" fill="none" stroke="#dff487" stroke-width=".9" stroke-linecap="round" opacity=".85"/><rect x="18.5" y="3" width="3" height="6.5" rx="1.5" fill="#6f4c1d"/><ellipse cx="20" cy="22" rx="15.5" ry="16" fill="url(#lcSkin)" stroke="#3f6108" stroke-width="1" stroke-opacity=".5"/><ellipse cx="20" cy="36" rx="2.3" ry="1.6" fill="#dcee8f" opacity=".9"/><circle cx="12" cy="19" r=".85" fill="#476808" opacity=".4"/><circle cx="26.5" cy="27" r=".85" fill="#476808" opacity=".38"/><circle cx="16" cy="30" r=".7" fill="#476808" opacity=".38"/><circle cx="28" cy="17" r=".7" fill="#fff" opacity=".4"/><ellipse cx="13.5" cy="15" rx="5.4" ry="3" fill="#fff" opacity=".5" transform="rotate(-27 13.5 15)"/><circle cx="11" cy="12.5" r="1.6" fill="#fff" opacity=".72"/></svg></div>';
   var spot=mk('lime-spot');body.appendChild(spot);body.appendChild(lc);body.classList.add('limecursor-on');
   var cx=window.innerWidth/2,cy=window.innerHeight/2,raf=0,lastTr=0;
   var frame=function(){raf=0;var t='translate3d('+cx+'px,'+cy+'px,0) translate(-50%,-50%)';lc.style.transform=t;spot.style.transform=t;};
